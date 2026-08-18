@@ -18,6 +18,7 @@
 # ================================================================
 
 import json
+import os
 import uuid
 from pathlib import Path
 
@@ -918,18 +919,23 @@ if __name__ == "__main__":
     print("ALL MODELS LOADED")
     print("=" * 80)
 
-    print(
-        "Open browser:"
-    )
+    # Check if running in Vercel environment
+    is_vercel = os.getenv("VERCEL") is not None
+    
+    if not is_vercel:
+        print(
+            "Open browser:"
+        )
 
-    print(
-        "http://127.0.0.1:5000"
-    )
+        print(
+            "http://127.0.0.1:5000"
+        )
 
-    print()
+        print()
 
-    app.run(
-        host="127.0.0.1",
-        port=5000,
-        debug=True
-    )
+        app.run(
+            host="127.0.0.1",
+            port=5000,
+            debug=True
+        )
+    # In Vercel, the app is exported as WSGI app and doesn't use app.run()
